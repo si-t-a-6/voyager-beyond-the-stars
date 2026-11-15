@@ -75,14 +75,14 @@ a{color:var(--acc)}
 
 #lbls{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 .pl{position:absolute;left:0;top:0;width:0;height:0;will-change:transform}
-.pl .lw{position:absolute;left:0;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}
-.pl .lw::after{order:3;content:"";width:1px;height:var(--t,6px);background:rgba(255,255,255,.7)}
-.pl .pn{order:2;white-space:nowrap;font:700 .7rem system-ui,sans-serif;letter-spacing:.14em;color:#fff;background:rgba(3,7,18,.7);padding:.15rem .4rem;border-radius:4px;text-shadow:0 0 4px #000}
-.pl .pd{order:1;display:none;max-width:190px;text-align:center;font:.72rem/1.35 system-ui,sans-serif;color:#dfe8ff;background:rgba(3,7,18,.85);padding:.25rem .45rem;border-radius:5px;margin-bottom:3px}
-.pl.near .pn{font-size:.95rem;color:var(--gold);border:1px solid rgba(255,196,107,.6)}
+.pl .lw{position:absolute;left:0;bottom:0;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;width:max-content;max-width:200px}
+.pl .lw::after{order:3;content:"";width:1px;height:var(--t,6px);background:none}/* spacer only: the visible planet-label connector line is removed */
+.pl .pn{order:2;white-space:nowrap;font:600 .72rem/1.2 system-ui,sans-serif;letter-spacing:.12em;color:#fff;background:none;padding:.1rem .2rem;border:0;text-shadow:0 0 3px #030712,0 0 8px rgba(3,7,18,.95),0 0 16px rgba(3,7,18,.8)}
+.pl .pd{order:1;display:none;max-width:190px;text-align:center;font:.72rem/1.35 system-ui,sans-serif;color:#dfe8ff;background:none;padding:.1rem .2rem;margin-bottom:2px;text-shadow:0 0 3px #030712,0 0 8px rgba(3,7,18,.95),0 0 16px rgba(3,7,18,.8)}
+.pl.near .pn{font-size:.95rem;font-weight:700;color:var(--gold)}
 .pl.near .pd{display:block}
 .pl.vl .pn{color:#ffd34d}.pl.ec .pn{color:#7cc4ff;letter-spacing:.1em}.pl.ed .pn{color:#9cc7ff}
-@media(max-width:700px){.pl .pn{font-size:.58rem;padding:.1rem .25rem}.pl.near .pn{font-size:.75rem}.pl .pd{max-width:140px;font-size:.62rem}}
+@media(max-width:700px){.pl .pn{font-size:.62rem;letter-spacing:.08em;padding:.05rem .15rem}.pl.near .pn{font-size:.76rem}.pl .pd{max-width:132px;font-size:.62rem;line-height:1.3}.pl.bgl .pd{display:none!important}}
 #bub .v{background:#c9d3ec}#bub .r{background:#ff9bb4}
 .lk{background:none;border:0;color:var(--acc);text-decoration:underline;font:inherit;padding:0}
 #fs{position:fixed;inset:0;z-index:30;display:none;color:#fff;text-align:center}
@@ -105,6 +105,103 @@ body.fsOn #hud,body.fsOn #fin{visibility:hidden}
 #fin{position:fixed;z-index:4;left:0;right:0;top:calc(9vh + env(safe-area-inset-top,0px));text-align:center;opacity:0;transition:opacity 1.2s;pointer-events:none;padding:0 5vw;text-shadow:0 0 12px #000,0 0 3px #000}#fin.show{opacity:1}
 @media(prefers-reduced-motion:reduce){.fi{animation:none;opacity:1}#fin{transition:none}}
 @media(max-width:700px){#exb{top:calc(8px + env(safe-area-inset-top,0px));font-size:.6rem;padding:.4rem .6rem}#mute{top:calc(8px + env(safe-area-inset-top,0px));font-size:.6rem}#nav{left:8px;transform:none;top:calc(46px + env(safe-area-inset-top,0px));max-width:calc(100vw - 168px)}#crb{top:calc(46px + env(safe-area-inset-top,0px));font-size:.58rem;padding:.35rem .6rem}#sc{top:calc(84px + env(safe-area-inset-top,0px))}}
+
+/* ===== Mobile / responsive optimisation layer (added; desktop rules above are untouched) ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{max-width:100%;overflow-x:clip}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#hero{height:auto;min-height:100vh;min-height:100svh;box-sizing:border-box}
+@media(max-width:700px){
+:root{--tb:calc(8px + env(safe-area-inset-top,0px))}
+/* hero: stacks naturally, never taller content than its box */
+#hero{padding:calc(24px + env(safe-area-inset-top,0px)) 5vw calc(22px + env(safe-area-inset-bottom,0px))}
+#hero h1{font-size:clamp(2.3rem,13.5vw,3.6rem);letter-spacing:.05em;line-height:1.05}
+.sub{letter-spacing:.2em;font-size:clamp(.62rem,2.9vw,.8rem);margin:.5rem 0}
+#hero .sub[style]{letter-spacing:.18em}
+.yr{font-size:.68rem;letter-spacing:.1em;line-height:1.45;margin:.9rem 0 .55rem}
+.ln{gap:.6rem;margin:.3rem 0 .8rem}
+.lf{padding:.3rem;font-size:.72rem;line-height:1.35}
+.lf img{height:clamp(84px,24vw,110px)}
+#hero p{font-size:.92rem;line-height:1.5;margin:.4rem 0}
+.cr{font-size:.66rem;line-height:1.55;margin-top:.2rem}
+.cr .lk{min-height:32px}
+.go{align-self:stretch;text-align:center;min-height:48px;padding:.7rem 1rem;letter-spacing:.08em;font-size:.76rem;line-height:1.3;margin-top:.9rem}
+/* top controls: row 1 = Explore + Sound, row 2 = timeline + Credits, row 3 = scene caption */
+#exb,#mute,#crb{min-height:34px;box-sizing:border-box;align-items:center;justify-content:center;line-height:1.1}
+#exb{left:10px;top:var(--tb);font-size:.62rem;padding:.3rem .75rem;letter-spacing:.08em}
+#mute{right:10px;top:var(--tb);font-size:.62rem;padding:.3rem .85rem;letter-spacing:.06em}
+#nav{left:10px;transform:none;top:calc(var(--tb) + 40px);max-width:calc(100vw - 124px);min-height:34px;box-sizing:border-box;align-items:center;gap:4px;padding:.3rem .55rem}
+#nav button{width:12px;height:12px;position:relative}
+#nav button::before{content:"";position:absolute;inset:-9px -3px}
+#crb{right:10px;top:calc(var(--tb) + 40px);max-width:98px;white-space:normal;text-align:center;font-size:.6rem;line-height:1.15;letter-spacing:.03em;padding:.25rem .5rem}
+#sc{top:calc(var(--tb) + 80px);left:10px;right:10px;font-size:.56rem;letter-spacing:.08em;line-height:1.45;pointer-events:none;text-shadow:0 0 3px #030712,0 0 8px rgba(3,7,18,.95)}
+#twist{top:calc(var(--tb) + 124px);font-size:clamp(.95rem,4.8vw,1.3rem);letter-spacing:.04em}
+/* final chapter text sits between the controls and Cosmo */
+#fin{top:calc(var(--tb) + 118px);padding:0 6vw}
+.f1{font-size:clamp(.74rem,3.5vw,1rem);letter-spacing:.05em;line-height:1.4;margin:.3rem 0}
+.f4{font-size:clamp(1.1rem,5.8vw,1.6rem);letter-spacing:.06em;line-height:1.2;margin-top:.8rem}
+.f5{font-size:clamp(.9rem,4.4vw,1.2rem);letter-spacing:.14em;line-height:1.3}
+/* side / bottom panel */
+#pn .xx{margin:10px 12px 4px 0;min-height:36px}
+#pb{padding:0 1rem calc(1.2rem + env(safe-area-inset-bottom,0px))}
+#pn h3{font-size:1.25rem;line-height:1.25}
+#pn img{max-height:32vh}
+.it{font-size:.84rem}
+.pg button{min-height:38px;padding:.3rem 1rem}
+.chip{padding:.5rem .85rem}
+/* instrument explorer */
+#exh{display:block;left:12px;top:calc(12px + env(safe-area-inset-top,0px));max-width:calc(100% - 110px);font-size:.55rem;letter-spacing:.03em;line-height:1.45}
+#exx{min-height:34px}
+#exl{top:calc(60px + env(safe-area-inset-top,0px));gap:6px;padding-bottom:4px}
+#exl button{padding:.45rem .7rem;font-size:.72rem;min-height:36px;white-space:nowrap}
+#exw{left:10px;width:calc(100% - 20px);max-height:40%}
+#exw .it{font-size:.8rem;margin:.3rem 0;padding:.5rem .65rem}
+/* one light-day sequence */
+#fs .lb{height:3.5vh}
+#fsK{padding:6px 5vw 0;font-size:.6rem;letter-spacing:.08em;line-height:1.55}
+#fsT{padding:0 6vw}
+.a1,.a2,.a3{font-size:clamp(.95rem,4.6vw,1.3rem);letter-spacing:.14em}
+.r1{font-size:clamp(1.2rem,6.2vw,1.6rem);letter-spacing:.04em}
+.r2{font-size:clamp(.95rem,4.4vw,1.25rem);letter-spacing:.14em}
+.r3{font-size:clamp(.85rem,3.8vw,1.1rem);letter-spacing:.1em}
+.r4{font-size:clamp(.66rem,3vw,.85rem);letter-spacing:.06em}
+.r5{font-size:clamp(1rem,5.2vw,1.4rem);letter-spacing:.03em}
+.r6{font-size:clamp(.64rem,2.9vw,.8rem);letter-spacing:.06em}
+.rn{font-size:.7rem;line-height:1.5;margin-top:.7rem}
+#fsC{font-size:.82rem;padding:.2rem .8rem;line-height:1.4}
+}
+@media(max-width:359px){#exl{top:calc(80px + env(safe-area-inset-top,0px))}}
+@media(max-width:700px) and (min-width:360px){#nav{gap:6px}}
+@media(max-width:700px) and (max-height:620px){.pl .pd{display:none!important}#fin .f1{font-size:.7rem;margin:.2rem 0}#fin .f4{font-size:1rem;margin-top:.5rem}#fin .f5{font-size:.85rem}}
+/* Cosmo + action buttons: compact on phones and on landscape phones */
+@media(max-width:700px),(max-height:480px) and (orientation:landscape){
+#hud{padding:0 10px 10px}
+#cd{max-width:none;max-height:min(24vh,168px);max-height:min(24svh,168px);overflow-y:auto;overscroll-behavior:contain;padding:.5rem .75rem .55rem;border-radius:10px;font-size:.82rem;line-height:1.42}
+#cd b{font-size:.62rem;letter-spacing:.16em}
+#cd .x{position:sticky;top:0;z-index:1;width:34px;height:30px;margin:-.35rem -.55rem 0 .3rem;padding:0;font-size:1.3rem;line-height:1;display:flex;align-items:center;justify-content:center}
+#mx{font-size:.8rem;margin:.3rem 0 0}
+#cd .more{min-height:32px;padding:.3rem .85rem;font-size:.7rem;margin-top:.4rem}
+#bub{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+#bub button{min-height:42px;padding:.4rem .5rem;font-size:.64rem;letter-spacing:.05em;line-height:1.2;box-shadow:0 0 12px rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;text-align:center}
+#bub .p{grid-column:1/-1}
+#bub:has(.v:not([style*="none"])) .p,#bub:has(.r:not([style*="none"])) .p{grid-column:auto}
+#fsB{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:6px 10px calc(10px + env(safe-area-inset-bottom,0px))}
+#fsB button{min-height:44px;padding:.4rem .5rem;font-size:.68rem;letter-spacing:.06em;line-height:1.2}
+#fsSkip,#fsGo{grid-column:1/-1}#fsGo{order:3}
+}
+@media(max-height:480px) and (orientation:landscape){
+#cd{max-width:46%;max-height:38vh;max-height:38svh}
+#bub{position:absolute;right:10px;bottom:10px;width:min(48%,400px);margin:0;grid-template-columns:repeat(3,1fr)}
+#bub .p,#bub .v,#bub .r{grid-column:auto}
+#fs .lb{height:3vh}
+#nav{left:50%;transform:translateX(-50%);top:calc(10px + env(safe-area-inset-top,0px));max-width:92vw}
+#exb,#mute{top:calc(10px + env(safe-area-inset-top,0px))}
+#crb{top:calc(48px + env(safe-area-inset-top,0px));right:12px}
+#sc{top:calc(52px + env(safe-area-inset-top,0px));left:12px;right:auto;max-width:calc(100% - 190px)}
+#fin{top:calc(88px + env(safe-area-inset-top,0px));padding:0 5vw}
+#fin .f1{font-size:.72rem;margin:.15rem 0}#fin .f4{font-size:1.05rem;margin-top:.4rem}#fin .f5{font-size:.85rem}
+#twist{top:calc(90px + env(safe-area-inset-top,0px))}
+}
 </style></head><body>
 <canvas id="c" role="img" aria-label="3D visualisation of the Voyager journey (artistic, not NASA imagery)"></canvas>
 <header id="hero">
@@ -285,7 +382,7 @@ function renderCredits(){
 /* ===== 3D ===== */
 const ren=new THREE.WebGLRenderer({canvas:$("c"),antialias:true});ren.setPixelRatio(Math.min(devicePixelRatio,innerWidth<700?1.5:2));ren.setClearColor(0x030712);
 const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(50,1,.1,4000);
-function rs(){ren.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}addEventListener("resize",rs);rs();
+function rs(){ren.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;if(cam.aspect<1&&innerWidth<700)cam.setViewOffset(innerWidth,innerHeight,0,Math.round(innerHeight*.07),innerWidth,innerHeight);else{cam.clearViewOffset();cam.updateProjectionMatrix()}}addEventListener("resize",rs);rs();
 const GAP=70,Z=i=>-GAP*i;
 const Yv=S=>{const x=S-2.6;return 24*(x<=0?0:x<1?.5*x*x:x-.5)};
 function pts(n,sp,col,sz,fix){const a=new Float32Array(3*n);for(let i=0;i<n;i++){if(fix){const r=1500,u=Math.random()*6.283,v=Math.acos(2*Math.random()-1);a.set([r*Math.sin(v)*Math.cos(u),r*Math.sin(v)*Math.sin(u),r*Math.cos(v)],3*i)}else a.set([(Math.random()-.5)*sp[0],(Math.random()-.5)*sp[1],-Math.random()*sp[2]+80],3*i)}
@@ -390,11 +487,11 @@ let TT=0;
 
 /* ===== Planet labels (DOM, attached to the 3D bodies, readable at any zoom) ===== */
 const LB=[],wp=new THREE.Vector3();
-function addLabel(obj,name,desc,o={}){const el=document.createElement("div");el.className="pl"+(o.cls?" "+o.cls:"");el.innerHTML=`<div class="lw"><span class="pd">${desc}</span><span class="pn">${name}</span></div>`;el.style.display="none";$("lbls").appendChild(el);const L=Object.assign({obj,el,r:1,lift:0,near:0,show:null,on:false,isNear:false},o);LB.push(L);return L}
-const bgv=()=>bg.visible;
+function addLabel(obj,name,desc,o={}){const el=document.createElement("div");el.className="pl"+(o.cls?" "+o.cls:"")+(o.bgStop!==undefined?" bgl":"");el.innerHTML=`<div class="lw"><span class="pd">${desc}</span><span class="pn">${name}</span></div>`;el.style.display="none";$("lbls").appendChild(el);const L=Object.assign({obj,el,r:1,lift:0,near:0,show:null,on:false,isNear:false},o);LB.push(L);return L}
+const bgv=()=>bg.visible&&(innerWidth>=700||Math.abs(S-5)<1.1);
 const DESC={SUN:"Our star. Everything in the Solar System orbits it.",MERCURY:"The smallest planet, closest to the Sun.",VENUS:"The hottest planet, wrapped in thick clouds.",EARTH:"Our home planet.",MARS:"The red planet.",JUPITER:"The largest planet. Voyager 1 visited in March 1979.",SATURN:"The ringed planet. Voyager 1 visited in November 1980.",URANUS:"An ice giant tipped on its side.",NEPTUNE:"The farthest planet from the Sun."};
 addLabel(sunB,"SUN",DESC.SUN,{r:2.2,show:bgv,bgStop:5});
-const LIFT=[0,18,36,18,0,0,0,0];
+const LIFT=[0,0,0,0,0,0,0,0];
 BP.forEach((p,i)=>{const n=p[0].toUpperCase();addLabel(p.m,n,DESC[n],{r:1.1,lift:LIFT[i],show:bgv,bgStop:5})});
 VV.forEach(v=>addLabel(v.m,v.n.toUpperCase(),v.n==="Voyager 1"?"Our main explorer.":"Voyager 1’s twin.",{r:1.1,lift:10,show:bgv,cls:"vl",bgStop:5}));
 const inS=(a,b)=>()=>S>=a&&S<=b;
@@ -406,6 +503,9 @@ addLabel(ura,"URANUS","An ice giant. Voyager 1 passes far above it, without visi
 addLabel(nep,"NEPTUNE","The farthest planet. Voyager 1 passes far above it, without visiting.",{r:5,near:80,show:inS(3.1,4.9)});
 addLabel(eclO,"ECLIPTIC PLANE","The flat disc in which most planets orbit. Voyager 1 climbs above it.",{r:.1,cls:"ec",show:inS(.8,5)});
 addLabel(earthDot,"EARTH","A tiny pale blue dot, far behind Voyager 1.",{r:.3,lift:2,show:()=>S>=4.6,cls:"ed"});
+let HUDT=1e9;const hudMeasure=()=>{const r=$("hud").getBoundingClientRect();HUDT=r.height>0?r.top:1e9};
+if(window.ResizeObserver)new ResizeObserver(hudMeasure).observe($("hud"));
+addEventListener("resize",()=>{LB.forEach(L=>L.w=0);hudMeasure()});
 function updLabels(){
  const W=innerWidth,H=innerHeight,kk=H/2/Math.tan(cam.fov*Math.PI/360),ov=$("fs").classList.contains("show"),V=[];
  cam.updateMatrixWorld();bg.updateMatrixWorld(true);
@@ -423,12 +523,16 @@ function updLabels(){
  for(const L of V){
   if(L.nr!==L.isNear){L.isNear=L.nr;L.el.classList.toggle("near",L.nr);L.w=0}
   if(!L.w){L.el.style.setProperty("--t","6px");const w=L.el.firstChild;L.w=w.offsetWidth||60;L.h=w.offsetHeight||22}
-  let lift=L.lift;
-  for(let n=0;n<10;n++){const r={l:L.x-L.w/2-3,r:L.x+L.w/2+3,t:L.py-L.h-lift-2,b:L.py-lift};
-   if(!placed.some(p=>r.l<p.r&&p.l<r.r&&r.t<p.b&&p.t<r.b)){placed.push(r);break}
-   lift+=L.h+4}
+  const TB=H<480?84:118;let lift=L.lift,dx=0,ok=false,py=L.py;
+  if(W<700){const lo=TB+L.h+2+lift;py=Math.min(Math.max(py,lo),Math.max(lo,HUDT-6+lift))} /* phones: keep labels in the free band between the top controls and Cosmo */
+  const hw=L.w/2+3,ex=Math.min(Math.max(L.x,hw+4),Math.max(hw+4,W-hw-4))-L.x;
+  for(let n=0;n<10&&!ok;n++){
+   for(const sd of [0,1,-1]){const cxl=L.x+ex+sd*(L.w/2+6),r={l:cxl-hw,r:cxl+hw,t:py-L.h-lift-2,b:py-lift};
+    if(r.l>=2&&r.r<=W-2&&(W>=700||(r.t>=TB&&r.b<=HUDT-4))&&!placed.some(p=>r.l<p.r&&p.l<r.r&&r.t<p.b&&p.t<r.b)){placed.push(r);dx=cxl-L.x;ok=true;break}}
+   if(!ok)lift+=L.h+4}
+  if(!ok){dx=ex;if(W<700)lift=L.lift}
   L.el.style.setProperty("--t",(6+lift)+"px");
-  L.el.style.transform=`translate(${L.x.toFixed(1)}px,${L.py.toFixed(1)}px)`}
+  L.el.style.transform=`translate(${(L.x+dx).toFixed(1)}px,${py.toFixed(1)}px)`}
 }
 
 /* ===== One light-day cinematic sequence ===== */
@@ -546,7 +650,7 @@ function init(){r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true})
  cv.addEventListener("pointerup",e=>{dg=null;if(mv>6)return;const b=cv.getBoundingClientRect(),rc=new THREE.Raycaster();rc.setFromCamera(new THREE.Vector2((e.clientX-b.left)/b.width*2-1,-((e.clientY-b.top)/b.height)*2+1),cm);const h=rc.intersectObjects(mk)[0];if(h)pick(h.object.userData.i)})}
 function pick(i){sel=i;const x=IN[i];mk.forEach((m,j)=>m.scale.setScalar(j===i?1.8:1));[...$("exl").children].forEach((b,j)=>b.classList.toggle("sel",j===i));
  $("exi").innerHTML=`<span class="bd ${x[1]?"on":"off"}">${x[1]?"ON":"OFF"}</span><h4>${x[0]}</h4>${x[2]}<br><b>Learned:</b> ${x[3]}<br><b>Status:</b> ${x[4]}`+(i===6||i===8?`<p class="note"><b>Don’t mix up PLS and PWS!</b> PLS (Plasma Science) counts plasma particles directly and is OFF. PWS (Plasma Wave Subsystem) feels plasma waves and is ON.</p>`:"")+`<p class="note">Voyager 1 status, 14 Nov 2026. Marker positions are an artistic guide.</p>`}
-function sz(){const w=innerWidth,h=innerHeight;r.setSize(w,h,false);cm.aspect=w/h;cm.updateProjectionMatrix();cm.position.z=w<700?27:19}
+function sz(){const w=innerWidth,h=innerHeight;r.setSize(w,h,false);cm.aspect=w/h;if(w<700&&h>w)cm.setViewOffset(w,h,0,Math.round(h*.08),w,h);else{cm.clearViewOffset();cm.updateProjectionMatrix()}cm.position.z=w<700?27:19}
 function lp(){if(!run)return;if(!dg&&!reduce)gp.rotation.y+=.003;r.render(sc,cm);requestAnimationFrame(lp)}
 $("exb").onclick=()=>{ov.classList.add("open");if(!r)init();sz();run=true;pick(sel<0?5:sel);lp();$("exx").focus()};
 const cl=()=>{ov.classList.remove("open");run=false};$("exx").onclick=cl;addEventListener("keydown",e=>{if(e.key==="Escape")cl()});addEventListener("resize",()=>{if(r)sz()})})();
